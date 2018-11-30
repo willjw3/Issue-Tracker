@@ -24,15 +24,15 @@ module.exports = function (app) {
       var project = req.params.project;
       var query = {};
       var input = req.query;
-      if (input._id) {query._id = input._id;}
+      if (input._id) {query._id = new ObjectId(input._id);}
       if (input.issue_title) {query.issue_title = input.issue_title;}
       if (input.issue_text) {query.issue_text = input.issue_text;}
       if (input.created_on) {query.created_on = input.created_on;}
       if (input.updated_on) {query.updated_on = input.updated_on;}
       if (input.created_by) {query.created_by = input.created_by;}
       if (input.assigned_to) {query.assigned_to = input.assigned_to;}
-      if (input.open = 'false') {query.open = false;}
-      if (input.open = 'true') {query.open = true;}
+      if (input.open === 'false') {query.open = false;}
+      if (input.open === 'true') {query.open = true;}
       if (input.status_text) {query.status_text = input.status_text}
       MongoClient.connect(CONNECTION_STRING, { useNewUrlParser: true }, function(err, client) {
         if (!err) {
